@@ -1,3 +1,3 @@
 output "vault_address" {
-  value = "https://${var.dns_name}:8200"
+  value = "http://${data.kubernetes_service.vault_svc.load_balancer_ingress.0.ip}:8200"
 }

@@ -42,25 +42,3 @@ data "kubernetes_service" "vault_svc" {
     name      = "vault-ui"
   }
 }
-
-resource "google_dns_record_set" "vault" {
-  name     = "${var.dns_name}."
-  type     = "A"
-  ttl      = 300
-
-  managed_zone = var.dns_managed_zone
-  project      = var.project
-  rrdatas      = [data.kubernetes_service.vault_svc.load_balancer_ingress.0.ip]
-}
-
-resource "kubernetes_secret" "vault_tls" {
-  metadata {
-    name = "tls"
-    namespace = "vault"
-  }
-
-  data = {
-    "tls_crt" = file("certs/tls.crt"),
-    "tls_key" = file("certs/tls.key")
-  }
-}
