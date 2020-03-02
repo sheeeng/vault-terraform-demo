@@ -44,9 +44,9 @@ data "kubernetes_service" "vault_svc" {
 }
 
 resource "google_dns_record_set" "vault" {
-  name     = "${var.dns_name}."
-  type     = "A"
-  ttl      = 300
+  name = "${var.dns_name}."
+  type = "A"
+  ttl  = 300
 
   managed_zone = var.dns_managed_zone
   project      = var.project
@@ -55,7 +55,7 @@ resource "google_dns_record_set" "vault" {
 
 resource "kubernetes_secret" "vault_tls" {
   metadata {
-    name = "tls"
+    name      = "tls"
     namespace = "vault"
   }
 
